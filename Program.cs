@@ -9,6 +9,7 @@ namespace MDS_Application
             ModuleExecutionSystem_MDS                       moduleExeSys;
             UserModule_STD_IO                               stdIOModule;
             MDS_CodeGeneration.MDS_CodeGenModule            codeGenModule;
+            
 
             try
             {
@@ -22,10 +23,6 @@ namespace MDS_Application
             {
                 ModuleExecutionSystem_MDS.ApplicationExceptionHandler(e);
             }
-            finally 
-            {
-                ModuleExecutionSystem_MDS.ApplicationClose();
-            }                  
         }
     }
 }
