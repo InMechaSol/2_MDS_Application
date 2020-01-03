@@ -1,4 +1,10 @@
 ﻿using System;
+using Clean_BaseLib;
+using MDS_CoreLib;
+using MDS_CodeGeneration;
+using MDS_ProductConnection;
+using MDS_ProductSimulation;
+
 
 namespace MDS_Application
 {
@@ -8,21 +14,31 @@ namespace MDS_Application
         {
             ModuleExecutionSystem_MDS                       moduleExeSys;
             UserModule_STD_IO                               stdIOModule;
-            MDS_CodeGeneration.MDS_CodeGenModule            codeGenModule;
-            
+            MDS_CodeGenModule                               codeGenModule;
 
             try
             {
-                moduleExeSys =          new ModuleExecutionSystem_MDS();
-                stdIOModule =           new UserModule_STD_IO(moduleExeSys);
-                codeGenModule =         new MDS_CodeGeneration.MDS_CodeGenModule(moduleExeSys);
-
-                moduleExeSys.Execute();
+                moduleExeSys = new ModuleExecutionSystem_MDS();
+                try
+                {
+                    stdIOModule = new UserModule_STD_IO(moduleExeSys);
+                    codeGenModule = new MDS_CodeGenModule(moduleExeSys);                    
+                }
+                catch (Exception e)
+                {
+                    moduleExeSys.PushConstructionException(e);
+                }
+                finally
+                {
+                    moduleExeSys.Execute();
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ModuleExecutionSystem_MDS.ApplicationExceptionHandler(e);
             }
+
+            
         }
     }
 }
