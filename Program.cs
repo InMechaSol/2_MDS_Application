@@ -19,26 +19,16 @@ namespace MDS_Application
             try
             {
                 moduleExeSys = new ModuleExecutionSystem_MDS();
-                try
-                {
-                    stdIOModule = new UserModule_STD_IO(moduleExeSys);
-                    codeGenModule = new MDS_CodeGenModule(moduleExeSys);                    
-                }
-                catch (Exception e)
-                {
-                    moduleExeSys.PushConstructionException(e);
-                }
-                finally
-                {
-                    moduleExeSys.Execute();
-                }
+
+                stdIOModule = new UserModule_STD_IO(moduleExeSys);
+                codeGenModule = new MDS_CodeGenModule(moduleExeSys);
+
+                moduleExeSys.Execute();
             }
             catch (Exception e)
             {
                 ModuleExecutionSystem_MDS.ApplicationExceptionHandler(e);
-            }
-
-            
+            }            
         }
     }
 }
